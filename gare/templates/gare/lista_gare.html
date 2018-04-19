@@ -1,0 +1,67 @@
+
+{% extends 'gare/base.html' %}
+
+{% block breadcrumb %}
+        <a style="margin-left: 20px;" class="breadcrumb" href="#!">Cerca Gare</a>
+{% endblock %}
+{% block content %}
+
+
+<div class="row">
+	<ul>
+{% for record in gare_result %}
+   <li>Identificativo: {{record.IDEN}}</li>
+   <li>OGGETTO: {{record.OGGETTO}} </li>
+
+   <li>TIPOLOGIA: {{record.TIPOLOGIA}} </li>
+   <li>PROCEDURA: {{record.PROCEDURA}} </li>
+   
+   <li>ENTE: {{record.ENTE}} </li>
+   
+   <li>CITTA: {{record.CITTA}} </li>
+   <li>PROVINCIA: {{record.PROVINCIA}}</li>
+   <li>REGIONE: {{record.REGIONE}} </li>
+   
+   <li>IMPORTO: {{record.IMPORTO}} </li>
+
+   <li>DATA_PUBBLICAZIONE: {{record.DATA_PUBBLICAZIONE}} </li>
+   <li>DATA_INSERIMENTO: {{record.DATA_INSERIMENTO}} </li>
+   <li>DATA_SCADENZA: {{record.DATA_SCADENZA}} </li>
+
+   <li>CATEGORIA_PREVALENTE: {{record.CATEGORIA_PREVALENTE}} </li>
+   <li>CATEGORIE_SCORPORABILI: {{record.CATEGORIE_SCORPORABILI}} </li>
+   <li>CPV: {{record.CPV}} </li>
+   <li>PROVENIENZA: {{record.PROVENIENZA}} </li>
+   <li>DOWNLOAD: {{record.DOWNLOAD}} </li>
+   <li>INFO_AGGIUNTIVE: {{record.INFO_AGGIUNTIVE}} </li>
+
+   
+   
+   <li>----------------------------</li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
+
+<!-- 
+	IDEN	= models.CharField(max_length=30, null=True, blank=True)
+	IDFIREBASE	= models.CharField(max_length=30)
+	IDENTIFICATIVO_GARA = models.CharField(max_length=30, null=True, blank=True)
+	CIG	= models.CharField(max_length=30, null=True, blank=True)
+	OGGETTO = 	models.TextField(null=True, blank=True)
+	TIPOLOGIA	= models.CharField(max_length=30, null=True, blank=True)
+	PROCEDURA	= models.CharField(max_length=30, null=True, blank=True)
+	ENTE	= models.CharField(max_length=100, null=True, blank=True)
+	CITTA	= models.CharField(max_length=100, null=True, blank=True)
+	PROVINCIA	= models.CharField(max_length=5, null=True, blank=True)
+	REGIONE	= models.CharField(max_length=30, null=True, blank=True)
+	IMPORTO	= models.CharField(max_length=50, null=True, blank=True)
+	DATA_PUBBLICAZIONE = models.IntegerField(blank=True, null=True)
+	DATA_INSERIMENTO = models.IntegerField(blank=True, null=True)
+	DATA_SCADENZA = models.IntegerField(blank=True, null=True)
+	CATEGORIA_PREVALENTE = models.CharField(max_length=5, null=True, blank=True)
+	CATEGORIE_SCORPORABILI = models.CharField(max_length=50, null=True, blank=True)
+	CPV = models.CharField(max_length=100, null=True, blank=True)
+	PROVENIENZA = models.CharField(max_length=30, null=True, blank=True)
+	DOWNLOAD = models.TextField(null=True, blank=True)
+	INFO_AGGIUNTIVE = models.TextField(null=True, blank=True) -->

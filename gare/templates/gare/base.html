@@ -1,0 +1,577 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+
+  <style type="text/css">
+    header,
+    main,
+    footer {
+      padding-left: 240px;
+    }
+    body {
+      backgroud: white;
+    }
+    @media only screen and (max-width: 992px) {
+      header,
+      main,
+      footer {
+        padding-left: 0;
+      }
+    }
+    #credits li,
+    #credits li a {
+      color: white;
+    }
+    #credits li a {
+      font-weight: bold;
+    }
+    .footer-copyright .container,
+    .footer-copyright .container a {
+      color: #BCC2E2;
+    }
+    .fab-tip {
+      position: fixed;
+      right: 85px;
+      padding: 0px 0.5rem;
+      text-align: right;
+      background-color: #323232;
+      border-radius: 2px;
+      color: #FFF;
+      width: auto;
+    }
+  </style>
+   <title>{% block title %}Bandigare{% endblock %}</title>
+</head>
+
+<body>
+
+  <ul id="slide-out" class="side-nav fixed z-depth-2">
+    <li class="center no-padding">
+      <div class="blue-grey darken-2 white-text" style="height: 180px;">
+        <div class="row">
+          <img style="margin-top: 5%;" width="100" height="100" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463990208/photo_dkkrxc.png" class="circle responsive-img" />
+
+          <p style="margin-top: -13%;">
+            Tirth Patel
+          </p>
+        </div>
+      </div>
+    </li>
+
+    <li id="dash_dashboard"><a class="waves-effect" href="/"><b>Dashboard</b></a></li>
+
+    <li id="dash_dashboard"><a class="waves-effect" href="/gare_list/"><b>Lista gare</b></a></li>
+
+    <li id="dash_dashboard"><a class="waves-effect" href="/simple_search/"><b>Cerca gare</b></a></li>
+
+    <ul class="collapsible" data-collapsible="accordion">
+      <li id="dash_users">
+        <div id="dash_users_header" class="collapsible-header waves-effect"><b>Collaspe</b></div>
+        <div id="dash_users_body" class="collapsible-body">
+          <ul>
+            <li id="users_seller">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Seller</a>
+            </li>
+
+            <li id="users_customer">
+              <a class="waves-effect" style="text-decoration: none;" href="#!">Customer</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+S
+    </ul>
+  </ul>
+
+  <header>
+    <ul class="dropdown-content" id="user_dropdown">
+      <li><a class="blue-grey-text" href="#!">Profile</a></li>
+      
+    </ul>
+
+    <nav class="blue-grey" role="navigation">
+      <div class="nav-wrapper">
+
+
+        <a data-activates="slide-out" class="button-collapse show-on-" href="#!"><img style="margin-top: 17px; margin-left: 5px;" src="https://res.cloudinary.com/dacg0wegv/image/upload/t_media_lib_thumb/v1463989873/smaller-main-logo_3_bm40iv.gif" /></a>
+
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a>
+          </li>
+        </ul>
+
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+      </div>
+    </nav>
+
+    <nav>
+      <div class="nav-wrapper blue-grey darken-2">
+        {% block breadcrumb %}
+        {% endblock %}
+        <div style="margin-right: 20px;" id="timestamp" class="right">
+            {% if user.is_authenticated %}
+              Hi {{ user.username }}!
+            {% else %}
+              <p>You are not logged in</p>
+          
+            {% endif %}
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+        {% block content %}
+
+        {% endblock %}
+  </main>
+
+  <footer class="blue-grey page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col s12">
+          <h5 class="white-text">Icon Credits</h5>
+          <ul id='credits'>
+            <li>
+              Gif Logo made using <a href="http://formtypemaker.appspot.com/">Form Type Maker</a> from <a href="https://github.com/romannurik/FORMTypeMaker">romannurik</a>
+            </li>
+            <li>
+              Icons made by <a href="https://material.io/icons/">Google</a>, available under <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License Version 2.0</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        <span>Made By <a style='font-weight: bold;' href="https://github.com/piedcipher" target="_blank">Tirth Patel</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.button-collapse').sideNav();
+        $('.collapsible').collapsible();
+        $('select').material_select();
+
+          
+        //let's create arrays
+        var lavori = [
+            {display: "OG1 (Edifici civili e industriali)", value: "OG1" },
+            {display: "OG2 (Restauro e manutenzione dei beni immobili sottoposti a tutela)", value: "OG2" },
+            {display: "OG3 (Strade, autostrade, ponti, viadotti, ferrovie, metropolitane)", value: "OG3" },
+            {display: "OG4 (Opere darte nel sottosuolo)", value: "OG4" },
+            {display: "OG5 (Dighe)", value: "OG5" },
+            {display: "OG6 (Acquedotti, gasdotti, oleodotti, opere di irrigazione e di evacuazione)", value: "OG6" },
+            {display: "OG7 (Opere marittime e lavori di dragaggio)", value: "OG7" },
+            {display: "OG8 (Opere fluviali, di difesa, di sistemazione idraulica e di bonifica)", value: "OG8" },
+            {display: "OG9 (Impianti per la produzione di energia elettrica)", value: "OG9" },
+            {display: "OG10 (Impianti per la trasformazione alta/media tensione e e per la distribuzione di energia elettrica in corrente alternata e continua ed impianti di pubblica illuminazione)", value: "OG10" },
+            {display: "OG11 (Impianti tecnologici)", value: "OG11" },
+            {display: "OG12 (Opere ed impianti di bonifica e protezione ambiente)", value: "OG12" },
+            {display: "OG13 (Opere di ingegneria naturalistica)", value: "OG13" },
+            {display: "OS1 (Lavori in terra)", value: "OS1" },
+            {display: "OS2-A (Superfici decorate di beni immobili...)", value: "OS2-A" },
+            {display: "OS2-B (Beni culturali mobili di interesse archivistico e librario)", value: "OS2-B" },
+            {display: "OS3 (Impianti idrico-sanitario, cucine, lavanderie", value: "OS3" },
+            {display: "OS4 (Impianti elettromeccanici trasportatori)", value: "OS4" },
+            {display: "OS5 (Impianti pneumatici e antintrusione)", value: "OS5" },
+            {display: "OS6 (Finiture di opere generali in materiali lignei...)", value: "OS6" },
+            {display: "OS7 (Finiture di opere generali di natura edile)", value: "OS7" },
+            {display: "OS8 (Opere di impermeabilizzazione)", value: "OS8" },
+            {display: "OS9 (Impianti per la segnaletica luminosa e la sicurezza del traffico)", value: "OS9" },
+            {display: "OS10 (Segnaletica stradale non luminosa)", value: "OS10" },
+            {display: "OS11 (Apparecchiature strutturali speciali)", value: "OS11" },
+            {display: "OS12-A (Barriere stradali di sicurezza)", value: "OS12-A" },
+            {display: "OS12-B (Barriere paramassi, fermaneve e simili)", value: "OS12-B" },
+            {display: "OS13 (Strutture prefabbricate in cemento armato)", value: "OS13" },
+            {display: "OS14 (Impianti di smaltimento e recupero dei rifiuti)", value: "OS14" },
+            {display: "OS15 (Pulizie di acque marine...)", value: "OS15" },
+            {display: "OS16 (Impianti per centrali di produzione energia elettrica)", value: "OS16" },
+            {display: "OS17 (Linee telefoniche ed impianti di telefonia)", value: "OS17" },
+            {display: "OS18-A (Componenti strutturali in acciaio)", value: "OS18-A" },
+            {display: "OS18-B (Componenti per facciate continue)", value: "OS18-B" },
+            {display: "OS19 (Impianti di reti di telecomunicazione e di trasmissione dati)", value: "OS19" },
+            {display: "OS20-A (Rilevamenti topografici)", value: "OS20-A" },
+            {display: "OS20-B (Indagini geognostiche)", value: "OS20-B" },
+            {display: "OS21 (Opere strutturali speciali)", value: "OS21" },
+            {display: "OS22 (Impianti di potabilizzazione e depurazione)", value: "OS22" },
+            {display: "OS23 (Demolizione di opere)", value: "OS23" },
+            {display: "OS24 (Verde e arredo urbano)", value: "OS24" },
+            {display: "OS25 (Scavi archeologici)", value: "OS25" },
+            {display: "OS26 (Pavimentazioni e sovrastrutture speciali)", value: "OS26" },
+            {display: "OS27 (Impianti per la trazione elettrica)", value: "OS27" },
+            {display: "OS28 (Impianti termici e di condizionamento)", value: "OS28" },
+            {display: "OS29 (Armamento ferroviario)", value: "OS29" },
+            {display: "OS30 (Impianti interni elettrici, telefonici, radiotelefonici e televisivi)", value: "OS30" },
+            {display: "OS31 (Impianti per la mobilita sospesa)", value: "OS31" },
+            {display: "OS32 (Strutture in legno)", value: "OS32" },
+            {display: "OS33 (Coperture speciali)", value: "OS33" },
+            {display: "OS34 (Sistemi antirumore per infrastrutture di mobilita", value: "OS34" },
+            {display: "OS35 (Interventi a basso impatto ambientale)", value: "OS35" },
+            {display: "Lavori di costruzione", value: "45" }
+            ];
+            
+        var servizi = [
+            {display: "Servizi di riparazione e manutenzione", value: "50" },
+            {display: "Servizi di installazione", value: "51" },
+            {display: "Servizi alberghieri", value: "55" },
+            {display: "Servizi di trasporto", value: "60" },
+            {display: "Servizi di supporto ai trasporti", value: "63" },
+            {display: "Servizi di poste e telecomunicazioni", value: "64" },
+            {display: "Servizi pubblici", value: "65" },
+            {display: "Servizi finanziari e assicurativi", value: "66" },
+            {display: "Servizi immobiliari", value: "70" },
+            {display: "Servizi architettonici e ingegneria ", value: "71" },
+            {display: "Servizi informatici", value: "72" },
+            {display: "Servizi di ricerca e sviluppo", value: "73" },
+            {display: "Servizi di pubblica amministrazione", value: "75" },
+            {display: "Servizi industria petrolifera", value: "76" },
+            {display: "Servizi agricoltura", value: "77" },
+            {display: "Servizi per le imprese", value: "79" },
+            {display: "Servizi di istruzione e formazione", value: "80" },
+            {display: "Servizi sanitari", value: "85" },
+            {display: "Servizi ambientali", value: "90" },
+            {display: "Servizi ricreativi", value: "92" },
+            {display: "Altri servizi", value: "98" },
+            ];
+            
+        var forniture = [
+            {display: "Prodotti dell agricoltura", value: "03" },
+            {display: "Prodotti derivati", value: "09" },
+            {display: "Prodotti minerari", value: "14" },
+            {display: "Prodotti alimentari", value: "15" },
+            {display: "Macchinari agricoli", value: "16" },
+            {display: "Prodotti indumenti", value: "18" },
+            {display: "Materiali cuoio-tessili-plastica-gomma ", value: "19" },
+            {display: "Stampati e prodotti affini", value: "22" },
+            {display: "Sostanze chimiche", value: "24" },
+            {display: "Macchine per ufficio e PC", value: "30" },
+            {display: "Macchine di consumo ", value: "31" },
+            {display: "Attrezzature telecomunicazione", value: "32" },
+            {display: "Apparecchiature mediche e prodotti farmaceutici", value: "33" },
+            {display: "Attrezzature di trasporto e prodotti ausiliari per il trasporto", value: "34" },
+            {display: "Attrezzature di sicurezza", value: "35" },
+            {display: "Strumenti musicali", value: "37" },
+            {display: "Attrezzature da laboratorio", value: "38" },
+            {display: "Mobili", value: "39" },
+            {display: "Acqua captata e depurata", value: "41" },
+            {display: "Macchinari industriali", value: "42" },
+            {display: "Macchine per l'industria mineraria", value: "43" },
+            {display: "Strutture e materiali per costruzione", value: "44" },
+            {display: "Pacchetti software e sistemi di informazione", value: "48" }
+            ];
+
+
+
+
+        //If parent option is changed
+        $("#parent_tipologia").change(function() {
+               
+                var parent = $(this).val(); //get option value from parent 
+                
+                switch(parent){ //using switch compare selected option and populate child
+                      case 'lavori':
+                        list(lavori);
+                        break;
+                      case 'servizi':
+                        list(servizi);
+                        break;              
+                      case 'forniture':
+                        list(forniture);
+                        break;  
+                    default: //default child option is blank
+                        $("#child_tipologia").html('');  
+                        break;
+                   }
+        });
+
+
+
+        function list(array_list){
+            $("#child_tipologia").html(""); //reset child options
+            $(array_list).each(function (i) { //populate child options 
+            $("#child_tipologia").append("<option value="+array_list[i].value+">"+array_list[i].display+"</option>");
+            });
+            $('select').material_select();
+        }
+
+
+
+        var abruzzo = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Chieti", value: "CH" },
+                        {display: "L' Aquila", value: "AQ" },
+                        
+                        {display: "Pescara", value: "PE" },
+                        {display: "Teramo", value: "TE" },
+                      ];
+
+        var basilicata = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Matera", value: "MT" },
+                        {display: "Potenza", value: "PZ" },
+                        ];
+
+        var sicilia = [
+                       {display: "Tutte le provincie", value: "TT" },
+                       {display: "Agrigento", value: "AG" },
+                       {display: "Caltanissetta", value: "CL" },
+                        {display: "Catania", value: "CT" },
+                        {display: "Enna", value: "EN" },
+                        {display: "Messina", value: "ME" },
+                        {display: "Palermo", value: "PA" },
+                        {display: "Ragusa", value: "RG" },
+                        {display: "Siracusa", value: "SR" },
+                        {display: "Trapani", value: "TP" },
+                        
+                       ];
+        var piemonte = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Alessandria", value: "AL" },
+                        {display: "Asti", value: "AT" },
+                        {display: "Biella", value: "BI" },
+                        {display: "Cuneo", value: "CN" },
+                        {display: "Novara", value: "NO" },
+                        {display: "Torino", value: "TO" },
+                        {display: "Verbano-Cusio-Ossola", value: "VB" },
+                        {display: "Vercelli", value: "VC" },
+       
+                       ];
+        var marche = [
+                      {display: "Tutte le provincie", value: "TT" },
+                      {display: "Ancona", value: "AN" },
+                      {display: "Ascoli Piceno", value: "AP" },
+                      {display: "Fermo", value: "FM" },
+                      {display: "Macerata", value: "MC" },
+                      {display: "Pesaro e Urbino", value: "PU" },
+                       ];
+        var valle_d_aosta = [
+                         {display: "Tutte le provincie", value: "TT" },
+                         {display: "Aosta", value: "AO" },
+                       ];
+        var toscana = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Arezzo", value: "AR" },
+                        {display: "Firenze", value: "FI" },
+                        {display: "Grosseto", value: "GR" },
+                        {display: "Livorno", value: "LI" },
+                        {display: "Lucca", value: "LU" },
+                        {display: "Massa-Carrara", value: "MS" },
+                        {display: "Pisa", value: "PI" },
+                        {display: "Pistoia", value: "PT" },
+                        {display: "Prato", value: "PO" },
+                        {display: "Siena", value: "SI" },
+                       
+                       ];
+        var campania = [
+                      {display: "Tutte le provincie", value: "TT" },
+                      {display: "Avellino", value: "AV" },
+                      {display: "Benevento", value: "BN" },
+                      {display: "Caserta", value: "CE" },
+                      {display: "Napoli", value: "NA" },
+                      {display: "Salerno", value: "SA" },
+                       ];
+        var puglia = [
+                    {display: "Tutte le provincie", value: "TT" },
+                    {display: "Bari", value: "BA" },
+                    {display: "Barletta-Andria-Trani", value: "BT" },
+                    {display: "Brindisi", value: "BR" },
+                    {display: "Foggia", value: "FG" },
+                    {display: "Lecce", value: "LE" },
+                    {display: "Taranto", value: "TA" },
+                       ];
+        var veneto = [
+                    {display: "Tutte le provincie", value: "TT" },
+                    {display: "Belluno", value: "BL" },
+                    {display: "Padova", value: "PD" },
+                    {display: "Rovigo", value: "RO" },
+                    {display: "Venezia", value: "VE" },
+                    {display: "Verona", value: "VR" },
+                     {display: "Vicenza", value: "VI" },
+                    {display: "Treviso", value: "TV" },
+                    
+                       ];
+        var lombardia = [
+                      {display: "Tutte le provincie", value: "TT" },
+                      {display: "Bergamo", value: "BG" },
+                      {display: "Brescia", value: "BS" },
+                      {display: "Como", value: "CO" },
+                      {display: "Cremona", value: "CR" },
+                      {display: "Lecco", value: "LC" },
+                      {display: "Lodi", value: "LO" },
+                      {display: "Mantova", value: "MN" },
+                      {display: "Milano", value: "MI" },
+                       {display: "Monza e della Brianza", value: "MB" },
+                      {display: "Pavia", value: "PV" },
+                      {display: "Piacenza", value: "PC" },
+                      {display: "Sondrio", value: "SO" },
+                      {display: "Varese", value: "VA" },
+                      
+                       ];
+        var emilia_romagna = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Bologna", value: "BO" },
+                        {display: "Ferrara", value: "FE" },
+                        {display: "Forlì-Cesena", value: "FC" },
+                        {display: "Modena", value: "MO" },
+                        {display: "Parma", value: "PR" },
+                        {display: "Reggio Emilia", value: "RE" },
+                        {display: "Rimini", value: "RN" },
+                       ];
+        var trentino_alto_adige = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Bolzano", value: "BZ" },
+                        {display: "Trento", value: "TN" },
+                       ];
+        var sardegna = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Cagliari", value: "CA" },
+                        {display: "Carbonia-Iglesias", value: "CI" },
+                        {display: "Medio Campidano", value: "VS" },
+                        {display: "Nuoro", value: "NU" },
+                        {display: "Ogliastra", value: "OG" },
+                        {display: "Olbia-Tempio", value: "OT" },
+                        {display: "Oristano", value: "OR" },
+                        {display: "Sassari", value: "SS" },
+                       ];
+        var molise = [
+                         {display: "Tutte le provincie", value: "TT" },
+                         {display: "Campobasso", value: "CB" },
+                         {display: "Isernia", value: "IS" },
+                       ];
+        var calabria = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Catanzaro", value: "CZ" },
+                        {display: "Cosenza", value: "CS" },
+                        {display: "Crotone", value: "KR" },
+                        {display: "Reggio Calabria", value: "RC" },
+                        {display: "Vibo Valentia", value: "VV" }
+                       ];
+
+        var lazio = [
+                      {display: "Tutte le provincie", value: "TT" },
+                      {display: "Frosinone", value: "FR" },
+                      {display: "Latina", value: "LT" },
+                      {display: "Rieti", value: "RI" },
+                      {display: "Roma", value: "RM" },
+                      {display: "Viterbo", value: "VT" }
+                       ];
+
+        var liguria = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Genova", value: "GE" },
+                        {display: "Imperia", value: "IM" },
+                        {display: "La Spezia", value: "SP" },
+                        {display: "Savona", value: "SV" },
+                       ];
+
+        var friuli_venezia_giulia = [
+                        {display: "Tutte le provincie", value: "TT" },
+                        {display: "Gorizia", value: "GO" },
+                        {display: "Pordenone", value: "PN" },
+                        {display: "Trieste", value: "TS" },
+                       ];
+
+        var umbria = [
+                         {display: "Tutte le provincie", value: "TT" },
+                         {display: "Perugia", value: "PG" },
+                         {display: "Terni", value: "TR" },
+                       ];
+        //If parent option is changed
+        $("#parent_regione").change(function() {
+               
+                var parent = $(this).val(); //get option value from parent 
+                
+                switch(parent){ //using switch compare selected option and populate child
+                    case 'sicilia':
+                      list1(sicilia);
+                      break;
+                    case 'piemonte':
+                      list1(piemonte);
+                      break;
+                    case 'marche':
+                      list1(marche);
+                      break;
+                    case 'valle_d_aosta':
+                      list1(valle_d_aosta);
+                      break;
+                    case 'toscana':
+                      list1(toscana);
+                      break;
+                    case 'campania':
+                      list1(campania);
+                      break;
+                    case 'puglia':
+                      list1(puglia);
+                      break;
+                    case 'veneto':
+                      list1(veneto);
+                      break;
+                    case 'lombardia':
+                      list1(lombardia);
+                      break;
+                    case 'emilia_romagna':
+                      list1(emilia_romagna);
+                      break;
+                    case 'trentino_alto_adige':
+                      list1(trentino_alto_adige);
+                      break;
+                    case 'sardegna':
+                      list1(sardegna);
+                      break;
+                    case 'molise':
+                      list1(molise);
+                      break;
+                    case 'calabria':
+                      list1(calabria);
+                      break;
+                    case 'abruzzo':
+                      list1(abruzzo);
+                      break;
+                    case 'lazio':
+                      list1(lazio);
+                      break;
+                    case 'liguria':
+                      list1(liguria);
+                      break;
+                    case 'friuli_venezia_giulia':
+                      list1(friuli_venezia_giulia);
+                      break;
+                    case 'basilicata':
+                      list1(basilicata);
+                      break;
+                    case 'umbria':
+                      list1(umbria);
+                      break;                  
+
+                    default: //default child option is blank
+                        $("#child_regione").html('');  
+                        break;
+                   }
+        });
+
+        function list1(array_list){
+            $("#child_regione").html(""); //reset child options
+            $(array_list).each(function (i) { //populate child options 
+            $("#child_regione").append("<option value="+array_list[i].value+">"+array_list[i].display+"</option>");
+            });
+            $('select').material_select();
+        }
+
+    });
+
+  </script>
+
+</body>
+</html>

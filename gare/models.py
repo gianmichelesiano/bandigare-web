@@ -2,8 +2,9 @@
 from __future__ import unicode_literals
 from django.db import models
 
-# Create your models here.
-class GareFirebase(models.Model):
+
+
+class GarePubblicate(models.Model):
 	IDEN	= models.CharField(max_length=30, null=True, blank=True)
 	IDFIREBASE	= models.CharField(max_length=30)
 	IDENTIFICATIVO_GARA = models.CharField(max_length=30, null=True, blank=True)
@@ -16,9 +17,12 @@ class GareFirebase(models.Model):
 	PROVINCIA	= models.CharField(max_length=5, null=True, blank=True)
 	REGIONE	= models.CharField(max_length=30, null=True, blank=True)
 	IMPORTO	= models.CharField(max_length=50, null=True, blank=True)
-	DATA_PUBBLICAZIONE = models.IntegerField(blank=True, null=True)
-	DATA_INSERIMENTO = models.IntegerField(blank=True, null=True)
-	DATA_SCADENZA = models.IntegerField(blank=True, null=True)
+	#DATA_PUBBLICAZIONE = models.IntegerField(blank=True, null=True) .DateTimeField()
+	DATA_PUBBLICAZIONE = models.DateField(blank=True, null=True)
+	#DATA_INSERIMENTO = models.IntegerField(blank=True, null=True)
+	DATA_INSERIMENTO = models.DateField(blank=True, null=True)
+	#DATA_SCADENZA = models.IntegerField(blank=True, null=True)
+	DATA_SCADENZA = models.DateField(blank=True, null=True)
 	CATEGORIA_PREVALENTE = models.CharField(max_length=5, null=True, blank=True)
 	CATEGORIE_SCORPORABILI = models.CharField(max_length=50, null=True, blank=True)
 	CPV = models.CharField(max_length=100, null=True, blank=True)
